@@ -153,7 +153,6 @@ cd ~/node-latest-install
 curl https://nodejs.org/dist/node-latest.tar.gz | tar xz --strip-components=1
 ./configure --prefix=~/local
 make install # ok, fine, this step probably takes more than 30 seconds...
-curl -L https://www.npmjs.org/install.sh | sh
 cd "$APP_SOURCE_DIR"
 
 # If we use npm on root, run npm install.  Don't use `--production` here, as we
