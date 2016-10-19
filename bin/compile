@@ -140,6 +140,17 @@ if [ -z "$SERVER_ONLY_FLAG" ]; then
   echo "-----> Moving on."
 fi
 
+echo 'export PATH=$HOME/local/bin:$PATH' >> ~/.bashrc
+. ~/.bashrc
+mkdir ~/local
+mkdir ~/node-latest-install
+cd ~/node-latest-install
+curl https://nodejs.org/dist/node-latest.tar.gz | tar xz --strip-components=1
+./configure --prefix=~/local
+make install # ok, fine, this step probably takes more than 30 seconds...
+curl -L https://www.npmjs.org/install.sh | sh
+cd "$APP_SOURCE_DIR"
+
 # If we use npm on root, run npm install.  Don't use `--production` here, as we
 # may need devDependencies (e.g. webpack) in order to build the meteor app.
 if [ -e "$APP_SOURCE_DIR"/package.json ]; then
