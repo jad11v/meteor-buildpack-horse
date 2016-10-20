@@ -140,6 +140,25 @@ if [ -z "$SERVER_ONLY_FLAG" ]; then
   echo "-----> Moving on."
 fi
 
+
+METEOR_NPM=`find $METEOR_DIR -wholename "*/dev_bundle/bin/npm"`
+METEOR_NODE=`find $METEOR_DIR -wholename "*/dev_bundle/bin/node"`
+# Trim whitespace
+METEOR_NPM=`echo "$METEOR_NPM" | sed -e 's/[[:space:]]*$//'`
+METEOR_NODE=`echo "$METEOR_NODE" | sed -e 's/[[:space:]]*$//'`
+if [ -z "$METEOR_NPM" ] || [ -z "$METEOR_NODE" ] ; then
+  echo "FATAL: Can't find npm/node within meteor bundle. This is a bug. Please open an issue at https://github.com/AdmitHub/meteor-buildpack-horse.";
+  exit 1
+fi
+
+# Copy node into place for production.
+NODE="$COMPILE_DIR"/bin/node
+cp "$METEOR_NODE" "$NODE"
+chmod a+x "$NODE"
+
+# Add npm and node path so that 1.4's npm-rebuild.js will function.
+PATH="$METEOR_DIR/.meteor:`dirname $METEOR_NPM`:$COMPILE_DIR/bin:$PATH"
+
 mkdir ~/local-node
 mkdir ~/node
 curl https://nodejs.org/download/release/v6.2.2/node-v6.2.2-linux-x64.tar.gz | tar xzf - -C ~/local-node
@@ -183,7 +202,7 @@ rmdir $BUNDLE_DEST
 echo "-----> Installing npm production dependencies on built slug"
 if [ -e "$COMPILE_DIR"/app/programs/server/package.json ]; then
   cd "$COMPILE_DIR"/app/programs/server
-  npm install --production
+  $METEOR_NPM install --production
   cd "$APP_SOURCE_DIR"
 fi
 
