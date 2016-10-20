@@ -164,13 +164,12 @@ mkdir ~/node
 curl https://nodejs.org/download/release/v6.2.2/node-v6.2.2-linux-x64.tar.gz | tar xzf - -C ~/local-node
 mv ~/local-node/node-v6.2.2-linux-x64/* ~/node
 chmod +x ~/node/bin/*
-PATH=~/node/bin:$PATH
 cd "$APP_SOURCE_DIR"
 
 # If we use npm on root, run npm install.  Don't use `--production` here, as we
 # may need devDependencies (e.g. webpack) in order to build the meteor app.
 if [ -e "$APP_SOURCE_DIR"/package.json ]; then
-  npm install
+  ~/node/bin install
 fi
 
 # Related to https://github.com/meteor/meteor/issues/2796 and
