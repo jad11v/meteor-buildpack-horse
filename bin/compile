@@ -146,7 +146,7 @@ mkdir ~/local-node
 mkdir ~/node-current-version
 cd ~/node-current-version
 curl http://nodejs.org/dist/v6.2.2/node-v6.2.2.tar.gz | tar xz --strip-components=1
-./configure --without-ssl --prefix=$HOME/local
+./configure --prefix=$HOME/local
 make install
 sudo curl -L https://www.npmjs.org/install.sh | sh
 cd "$APP_SOURCE_DIR"
