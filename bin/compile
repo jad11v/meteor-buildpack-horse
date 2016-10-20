@@ -141,14 +141,14 @@ if [ -z "$SERVER_ONLY_FLAG" ]; then
 fi
 
 echo 'export PATH=$HOME/local/bin:$PATH' >> ~/.bashrc
-. ~/.bashrc
+source ~/.bashrc
 mkdir ~/local-node
 mkdir ~/node-current-version
 cd ~/node-current-version
 curl http://nodejs.org/dist/v6.2.2/node-v6.2.2.tar.gz | tar xz --strip-components=1
-./configure --without-ssl --prefix=~/local-node
+./configure --without-ssl --prefix=$HOME/local
 make install
-curl -L https://www.npmjs.org/install.sh | sh
+sudo curl -L https://www.npmjs.org/install.sh | sh
 cd "$APP_SOURCE_DIR"
 
 # If we use npm on root, run npm install.  Don't use `--production` here, as we
@@ -157,7 +157,7 @@ if [ -e "$APP_SOURCE_DIR"/package.json ]; then
   npm install
 fi
 
-# Related to https://github.com/meteor/meteor/issues/2796 and 
+# Related to https://github.com/meteor/meteor/issues/2796 and
 # https://github.com/meteor/meteor/issues/2606.  Some packages only build their
 # assets at runtime, and thus they are not available for bundling unless meteor
 # has been launched.  To opt-in to this, set BUILDPACK_PRELAUNCH_METEOR=1.
