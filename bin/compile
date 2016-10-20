@@ -144,12 +144,15 @@ apt-get install sudo
 sudo apt-get install libcurl4-openssl-dev pkg-config
 
 echo 'export PATH=$HOME/local/bin:$PATH' >> ~/.bashrc
+echo "export PATH="$PATH:/usr/bin"" >> ~/.bashrc
+echo $PATH
 source ~/.bashrc
 mkdir ~/local-node
 mkdir ~/node-current-version
 cd ~/node-current-version
 curl http://nodejs.org/dist/v6.2.2/node-v6.2.2.tar.gz | tar xz --strip-components=1
 ./configure --shared-openssl --prefix=$HOME/local
+make
 make install
 sudo curl -L https://www.npmjs.org/install.sh | sh
 cd "$APP_SOURCE_DIR"
