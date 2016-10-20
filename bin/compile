@@ -140,6 +140,9 @@ if [ -z "$SERVER_ONLY_FLAG" ]; then
   echo "-----> Moving on."
 fi
 
+apt-get install sudo
+sudo apt-get install libcurl4-openssl-dev pkg-config
+
 echo 'export PATH=$HOME/local/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
 mkdir ~/local-node
