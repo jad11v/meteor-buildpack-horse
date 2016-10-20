@@ -159,9 +159,6 @@ chmod a+x "$NODE"
 # Add npm and node path so that 1.4's npm-rebuild.js will function.
 PATH="$METEOR_DIR/.meteor:`dirname $METEOR_NPM`:$COMPILE_DIR/bin:$PATH"
 
-echo "-----> Using node: `$NODE --version`"
-echo "----->    and npm: `$METEOR_NPM --version`
-
 mkdir ~/local-node
 mkdir ~/node
 curl https://nodejs.org/download/release/v6.2.2/node-v6.2.2-linux-x64.tar.gz | tar xzf - -C ~/local-node
