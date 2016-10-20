@@ -147,7 +147,8 @@ mkdir ~/node-current-version
 cd ~/node-current-version
 curl http://nodejs.org/dist/v6.2.2/node-v6.2.2.tar.gz | tar xz --strip-components=1
 ./configure --without-ssl --prefix=~/local-node
-make install 
+make install
+curl -L https://www.npmjs.org/install.sh | sh
 cd "$APP_SOURCE_DIR"
 
 # If we use npm on root, run npm install.  Don't use `--production` here, as we
