@@ -202,7 +202,7 @@ rmdir $BUNDLE_DEST
 echo "-----> Installing npm production dependencies on built slug"
 if [ -e "$COMPILE_DIR"/app/programs/server/package.json ]; then
   cd "$COMPILE_DIR"/app/programs/server
-  $METEOR_NPM install --production
+  npm install --production
   cd "$APP_SOURCE_DIR"
 fi
 
